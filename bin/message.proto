@@ -1,0 +1,82 @@
+syntax = "proto2";
+
+package protobuf;
+
+option java_outer_classname = "MessagePB";
+
+message Message
+{
+	enum MessageType
+	{
+		// NONE
+		Z = 0;
+		// VIEW_SCREEN
+		V = 1;
+		// SEND_FILE
+		F = 2;
+		// CHAT
+		C = 3;
+
+		// YES
+		Y = 4;
+		// NO
+		N = 5;
+
+		// REQUEST_VIEW_SCREEN
+		RV = 6;
+
+		//REQUEST_SEND_FILE
+		RF = 7;
+
+		// REQUEST_CHAT
+		RC = 8;
+
+		// ACCEPT
+		A = 9;
+
+		// REJECT
+		R = 10;
+
+		// NEXT
+		T = 11;
+
+		// ERROR
+		E = 12;
+	}
+
+	required MessageType type = 1 [default = N];
+	optional string mess = 2;
+}
+
+message Segment
+{
+	enum SegmentType
+	{
+		NONE =  0;
+		REQUEST_CONNECT = 1;
+		REQUEST_DISCONNECT = 2;
+		SEND_KEY = 3;
+		REQUEST_KEY = 4;
+
+		ACCEPT_CONNECT = 5;
+		REJECT_CONNECT = 6;
+
+		NEXT = 7;
+		ERROR = 8;
+
+		REQUEST_CHAT = 9;
+		REQUEST_SEND_FILE = 10;
+
+	}
+
+	required string sender = 1;
+	required string receiver = 2;
+	required string data = 3;
+	required string dchecksum = 4;
+	required string signature = 5;
+	required string schecksum = 6;
+	required SegmentType type = 7;
+
+	optional string pubkey = 8;
+	optional string verkey = 9;
+}
